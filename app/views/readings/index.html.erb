@@ -1,0 +1,12 @@
+<h1>読書リスト</h1>
+<ul>
+  <% @readings.each do |reading| %>
+    <li>
+      <img src="<%= reading.book.image_url %>" alt="<%= reading.book.title %>" style="height: 150px; width: auto;">
+      <strong><%= reading.book.title %></strong> - 進捗: <%= reading.progress %>%
+      <% if reading.finished %>
+        <span>読了済み</span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

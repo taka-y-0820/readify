@@ -1,0 +1,16 @@
+<h1>本を検索</h1>
+<%= form_with url: books_path, method: :get, local: true do |form| %>
+  <%= form.text_field :query, placeholder: '本のタイトルを入力' %>
+  <%= form.submit '検索' %>
+<% end %>
+
+<h2>検索結果</h2>
+<ul>
+  <% @books.each do |book| %>
+    <li>
+      <img src="<%= book[:image_url] %>" alt="<%= book[:title] %>" style="height: 150px; width: auto;">
+      <strong><%= book[:title] %></strong> - <%= book[:author] %>
+      <%= button_to '追加', books_path(book: book), method: :post %>
+    </li>
+  <% end %>
+</ul>
