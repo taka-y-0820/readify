@@ -1,0 +1,91 @@
+<div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 py-8">
+  <!-- ヘッダー -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="flex items-center space-x-3 mb-4">
+      <%= link_to new_book_path, class: "text-amber-600 hover:text-amber-700 transition-colors" do %>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      <% end %>
+      <h1 class="text-3xl font-bold text-amber-900">Google Books 検索</h1>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- 検索フォーム -->
+    <div class="bg-white rounded-2xl shadow-xl p-8 mb-8">
+      <%= form_with url: search_books_path, method: :get, local: true do |form| %>
+        <div class="flex gap-3">
+          <%= form.text_field :query, 
+              placeholder: '例: 人を動かす、村上春樹', 
+              value: params[:query],
+              autofocus: true,
+              class: 'flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all' %>
+          <%= form.submit '検索', 
+              class: 'bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-3 rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all font-semibold shadow-lg transform hover:scale-105' %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- 検索結果 -->
+    <% if @results.present? %>
+      <div class="mb-6">
+        <h2 class="text-xl font-bold text-gray-900">検索結果: <%= @results.count %>件</h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <% @results.each do |result| %>
+          <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all overflow-hidden">
+            <!-- 本の表紙 -->
+            <div class="aspect-[3/4] bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center overflow-hidden">
+              <% if result[:cover_url].present? %>
+                <img src="<%= result[:cover_url] %>" alt="<%= result[:title] %>" class="w-full h-full object-cover" />
+              <% else %>
+                <svg class="w-20 h-20 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+              <% end %>
+            </div>
+
+            <!-- 本の情報 -->
+            <div class="p-4">
+              <h3 class="font-bold text-gray-900 text-lg mb-1 line-clamp-2"><%= result[:title] %></h3>
+              <p class="text-gray-600 text-sm mb-3"><%= result[:author] %></p>
+              
+              <% if result[:description].present? %>
+                <p class="text-gray-500 text-sm mb-4 line-clamp-3"><%= result[:description] %></p>
+              <% end %>
+
+              <%= button_to "本棚に追加", add_from_google_books_path, 
+                  params: { google_books_id: result[:google_books_id] },
+                  method: :post,
+                  class: "w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white px-4 py-2 rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all font-semibold shadow-md transform hover:scale-105" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    <% elsif params[:query].present? %>
+      <!-- 検索結果なし -->
+      <div class="bg-white rounded-2xl shadow-xl p-16 text-center">
+        <svg class="w-20 h-20 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">検索結果が見つかりません</h3>
+        <p class="text-gray-600">別のキーワードで検索してみてください</p>
+      </div>
+
+    <% else %>
+      <!-- 初期表示 -->
+      <div class="bg-white rounded-2xl shadow-xl p-16 text-center">
+        <svg class="w-20 h-20 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">本を検索しましょう</h3>
+        <p class="text-gray-600">タイトルや著者名を入力して検索してください</p>
+      </div>
+    <% end %>
+  </div>
+</div>

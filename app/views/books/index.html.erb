@@ -1,16 +1,159 @@
-<h1>本を検索</h1>
-<%= form_with url: books_path, method: :get, local: true do |form| %>
-  <%= form.text_field :query, placeholder: '本のタイトルを入力' %>
-  <%= form.submit '検索' %>
-<% end %>
+<div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+  <!-- ヘッダー -->
+  <div class="bg-white border-b border-amber-200 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <svg class="w-10 h-10 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          <h1 class="text-3xl font-bold text-amber-900">Readify</h1>
+          <span class="text-gray-600">|</span>
+          <h2 class="text-xl text-gray-700"><%= current_user.name %>さんの本棚</h2>
+        </div>
+        <div class="flex items-center space-x-4">
+          <%= link_to new_book_path, class: "flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all transform hover:scale-105 shadow-lg" do %>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            <span>本を追加</span>
+          <% end %>
+          <%= button_to "ログアウト", logout_path, method: :delete, class: "px-4 py-2 text-gray-700 hover:text-amber-700 font-medium transition-colors" %>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<h2>検索結果</h2>
-<ul>
-  <% @books.each do |book| %>
-    <li>
-      <img src="<%= book[:image_url] %>" alt="<%= book[:title] %>" style="height: 150px; width: auto;">
-      <strong><%= book[:title] %></strong> - <%= book[:author] %>
-      <%= button_to '追加', books_path(book: book), method: :post %>
-    </li>
-  <% end %>
-</ul>
+  <!-- メインコンテンツ -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- 読書中の本 -->
+    <% if @reading_books.any? %>
+      <section class="mb-12">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+          <svg class="w-6 h-6 text-amber-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          読書中 (<%= @reading_books.count %>冊)
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <% @reading_books.each do |book| %>
+            <%= link_to book_path(book), class: "block group" do %>
+              <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 overflow-hidden">
+                <div class="aspect-[3/4] bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center overflow-hidden">
+                  <% if book.cover_url.present? %>
+                    <img src="<%= book.cover_url %>" alt="<%= book.title %>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                  <% else %>
+                    <svg class="w-20 h-20 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  <% end %>
+                </div>
+                <div class="p-4">
+                  <h4 class="font-bold text-gray-900 text-lg mb-1 line-clamp-2 group-hover:text-amber-700 transition-colors"><%= book.title %></h4>
+                  <p class="text-gray-600 text-sm mb-3"><%= book.author %></p>
+                  <% if book.progress.present? %>
+                    <div class="mb-2">
+                      <div class="flex justify-between text-xs text-gray-600 mb-1">
+                        <span>進捗</span>
+                        <span><%= book.progress %>%</span>
+                      </div>
+                      <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                        <div class="bg-gradient-to-r from-amber-500 to-orange-500 h-2 rounded-full transition-all" style="width: <%= book.progress %>%"></div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+
+    <!-- 読み終わった本 -->
+    <% if @finished_books.any? %>
+      <section class="mb-12">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+          <svg class="w-6 h-6 text-green-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          読み終わった (<%= @finished_books.count %>冊)
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <% @finished_books.each do |book| %>
+            <%= link_to book_path(book), class: "block group" do %>
+              <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 overflow-hidden">
+                <div class="aspect-[3/4] bg-gradient-to-br from-green-100 to-emerald-100 flex items-center justify-center overflow-hidden">
+                  <% if book.cover_url.present? %>
+                    <img src="<%= book.cover_url %>" alt="<%= book.title %>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                  <% else %>
+                    <svg class="w-20 h-20 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  <% end %>
+                </div>
+                <div class="p-4">
+                  <h4 class="font-bold text-gray-900 text-lg mb-1 line-clamp-2 group-hover:text-green-700 transition-colors"><%= book.title %></h4>
+                  <p class="text-gray-600 text-sm"><%= book.author %></p>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+
+    <!-- 読みたい本 -->
+    <% if @want_to_read_books.any? %>
+      <section class="mb-12">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6 flex items-center">
+          <svg class="w-6 h-6 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+          </svg>
+          読みたい (<%= @want_to_read_books.count %>冊)
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <% @want_to_read_books.each do |book| %>
+            <%= link_to book_path(book), class: "block group" do %>
+              <div class="bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all transform hover:-translate-y-2 overflow-hidden">
+                <div class="aspect-[3/4] bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center overflow-hidden">
+                  <% if book.cover_url.present? %>
+                    <img src="<%= book.cover_url %>" alt="<%= book.title %>" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" />
+                  <% else %>
+                    <svg class="w-20 h-20 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  <% end %>
+                </div>
+                <div class="p-4">
+                  <h4 class="font-bold text-gray-900 text-lg mb-1 line-clamp-2 group-hover:text-blue-700 transition-colors"><%= book.title %></h4>
+                  <p class="text-gray-600 text-sm"><%= book.author %></p>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </section>
+    <% end %>
+
+    <!-- 本がない場合 -->
+    <% if @books.empty? %>
+      <div class="text-center py-16">
+        <svg class="w-24 h-24 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        <h3 class="text-2xl font-bold text-gray-900 mb-2">まだ本が登録されていません</h3>
+        <p class="text-gray-600 mb-6">あなたの本棚に最初の一冊を追加しましょう</p>
+        <%= link_to new_book_path, class: "inline-flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all transform hover:scale-105 shadow-lg" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+          </svg>
+          <span>本を追加</span>
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
+

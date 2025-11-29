@@ -1,0 +1,188 @@
+<!-- ヘッダーセクション -->
+<header class="relative min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 overflow-hidden">
+  <!-- アニメーション背景要素 -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute top-20 left-10 w-64 h-64 bg-amber-200 rounded-full opacity-20 blur-3xl animate-pulse"></div>
+    <div class="absolute top-40 right-20 w-80 h-80 bg-orange-200 rounded-full opacity-20 blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-20 left-1/3 w-72 h-72 bg-yellow-200 rounded-full opacity-20 blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+  </div>
+
+  <!-- ナビゲーション -->
+  <nav class="relative container mx-auto px-6 py-8">
+    <div class="flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <svg class="w-8 h-8 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        <span class="text-amber-900 text-3xl font-bold tracking-tight">Readify</span>
+      </div>
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="#features" class="text-gray-700 hover:text-amber-800 transition-colors font-medium">機能</a>
+        <a href="#how-it-works" class="text-gray-700 hover:text-amber-800 transition-colors font-medium">使い方</a>
+        <a href="#testimonials" class="text-gray-700 hover:text-amber-800 transition-colors font-medium">ユーザーの声</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ヒーローセクション -->
+  <div class="relative container mx-auto px-6 py-20 lg:py-32">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- 左側: テキストコンテンツ -->
+      <div class="space-y-8 animate-fade-in">
+        <div class="inline-block px-4 py-2 bg-amber-100 rounded-full">
+          <span class="text-amber-800 text-sm font-semibold">📚 読書管理の新しいスタンダード</span>
+        </div>
+        <h1 class="text-5xl lg:text-7xl font-extrabold text-gray-900 leading-tight">
+          読書を、
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600">もっと楽しく</span>
+        </h1>
+        <p class="text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-2xl">
+          Readifyは、あなたの読書体験を革新します。本との出会いから、読書の記録、振り返りまで、全てを一つのプラットフォームで。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <a href="#features" class="group inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white text-lg font-semibold rounded-xl hover:from-amber-700 hover:to-orange-700 transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl">
+            今すぐ始める
+            <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </a>
+          <a href="#how-it-works" class="inline-flex items-center justify-center px-8 py-4 border-2 border-amber-600 text-amber-700 text-lg font-semibold rounded-xl hover:bg-amber-50 transition-all">
+            使い方を見る
+          </a>
+        </div>
+        <!-- 統計情報 -->
+        <div class="grid grid-cols-3 gap-6 pt-8">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-amber-800">10K+</div>
+            <div class="text-sm text-gray-600 mt-1">登録ユーザー</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-amber-800">50K+</div>
+            <div class="text-sm text-gray-600 mt-1">登録された本</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-amber-800">100K+</div>
+            <div class="text-sm text-gray-600 mt-1">読書記録</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右側: ビジュアル -->
+      <div class="relative hidden lg:block">
+        <div class="relative z-10 bg-white rounded-2xl shadow-2xl p-8 transform rotate-2 hover:rotate-0 transition-transform duration-300">
+          <div class="space-y-4">
+            <div class="h-3 bg-gradient-to-r from-amber-200 to-orange-200 rounded-full w-3/4"></div>
+            <div class="h-3 bg-gradient-to-r from-amber-200 to-orange-200 rounded-full w-full"></div>
+            <div class="h-3 bg-gradient-to-r from-amber-200 to-orange-200 rounded-full w-5/6"></div>
+            <div class="mt-8 p-6 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl">
+              <div class="flex items-center space-x-4">
+                <div class="w-16 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg shadow-lg"></div>
+                <div class="flex-1">
+                  <div class="h-3 bg-amber-300 rounded-full w-3/4 mb-2"></div>
+                  <div class="h-2 bg-amber-200 rounded-full w-1/2"></div>
+                </div>
+              </div>
+              <div class="mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div class="h-full w-2/3 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="absolute top-10 -right-10 bg-white rounded-xl shadow-xl p-4 transform -rotate-6 z-20">
+          <div class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white">✓</div>
+            <span class="text-sm font-semibold">完読!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- 主要機能セクション -->
+<section id="features" class="container mx-auto px-6 py-24">
+  <h2 class="text-4xl font-bold text-center text-amber-800 mb-16">読書をもっと楽しく</h2>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <!-- 本の検索 -->
+    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+      <div class="text-amber-600 mb-6">
+        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+      <h3 class="text-2xl font-semibold text-gray-800 mb-4">本を探す</h3>
+      <p class="text-gray-600 leading-relaxed">
+        豊富なデータベースから、次に読みたい本を見つけましょう。あなたの興味に合わせたレコメンドで、新しい本との出会いをサポートします。
+      </p>
+    </div>
+
+    <!-- 読書記録 -->
+    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+      <div class="text-amber-600 mb-6">
+        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      </div>
+      <h3 class="text-2xl font-semibold text-gray-800 mb-4">読書を記録</h3>
+      <p class="text-gray-600 leading-relaxed">
+        読書の進捗や感想を記録して、自分だけの読書ログを作りましょう。読書の思い出を大切に残せます。
+      </p>
+    </div>
+
+    <!-- 統計・分析 -->
+    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
+      <div class="text-amber-600 mb-6">
+        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+        </svg>
+      </div>
+      <h3 class="text-2xl font-semibold text-gray-800 mb-4">読書を分析</h3>
+      <p class="text-gray-600 leading-relaxed">
+        あなたの読書傾向を可視化し、新たな読書の視点を発見します。月間・年間の読書統計も確認できます。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CTAセクション -->
+<!-- Disabled - no authentication -->
+
+<!-- フッター -->
+<footer class="bg-amber-900 text-white py-12">
+  <div class="container mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <div>
+        <h3 class="text-2xl font-bold mb-4">Readify</h3>
+        <p class="text-amber-100">あなたの読書をより豊かに</p>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">サービス</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-amber-100 hover:text-white">本を探す</a></li>
+          <li><a href="#" class="text-amber-100 hover:text-white">読書記録</a></li>
+          <li><a href="#" class="text-amber-100 hover:text-white">統計・分析</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">サポート</h4>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-amber-100 hover:text-white">ヘルプ</a></li>
+          <li><a href="#" class="text-amber-100 hover:text-white">お問い合わせ</a></li>
+          <li><a href="#" class="text-amber-100 hover:text-white">利用規約</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-semibold mb-4">フォロー</h4>
+        <div class="flex space-x-4">
+          <a href="#" class="text-amber-100 hover:text-white">
+            <span class="sr-only">Twitter</span>
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-amber-800 mt-12 pt-8 text-center text-amber-100">
+      <p>&copy; 2025 Readify. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

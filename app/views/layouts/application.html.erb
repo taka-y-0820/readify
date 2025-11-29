@@ -17,9 +17,8 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%# Tailwind CSS from CDN %>
+    <script src="https://cdn.tailwindcss.com"></script>
     <%= javascript_importmap_tags %>
   </head>
 

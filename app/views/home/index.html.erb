@@ -1,172 +1,368 @@
 <!-- ヘッダーセクション -->
-<header class="relative min-h-[80vh] bg-gradient-to-b from-amber-50 via-amber-50/70 to-white overflow-hidden">
-  <!-- 装飾的な背景要素 -->
-  <div class="absolute inset-0">
-    <div class="absolute top-20 left-10 w-32 h-32 bg-amber-100 rounded-full opacity-40 blur-2xl"></div>
-    <div class="absolute top-40 right-20 w-40 h-40 bg-amber-50 rounded-full opacity-40 blur-3xl"></div>
+<header class="relative min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 overflow-hidden">
+  <!-- アニメーション背景要素 -->
+  <div class="absolute inset-0 overflow-hidden">
+    <div class="absolute top-20 left-10 w-64 h-64 bg-amber-200 rounded-full opacity-20 blur-3xl animate-pulse"></div>
+    <div class="absolute top-40 right-20 w-80 h-80 bg-orange-200 rounded-full opacity-20 blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute bottom-20 left-1/3 w-72 h-72 bg-yellow-200 rounded-full opacity-20 blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
   </div>
 
   <!-- ナビゲーション -->
-  <nav class="relative container mx-auto px-6 py-6 flex justify-between items-center">
-    <div class="text-amber-800 text-2xl font-bold">Readify</div>
-    <div class="space-x-6">
-      <a href="#" class="text-gray-600 hover:text-amber-800 transition-colors">ログイン</a>
-      <a href="#" class="bg-amber-800 text-white px-6 py-2 rounded-lg hover:bg-amber-700 transition-colors shadow-sm">新規登録</a>
+  <nav class="relative container mx-auto px-6 py-8">
+    <div class="flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <svg class="w-8 h-8 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+        <span class="text-amber-900 text-3xl font-bold tracking-tight">Readify</span>
+      </div>
+      <div class="hidden md:flex space-x-8 items-center">
+        <a href="#features" class="text-gray-700 hover:text-amber-800 transition-colors font-medium">機能</a>
+        <a href="#how-it-works" class="text-gray-700 hover:text-amber-800 transition-colors font-medium">使い方</a>
+        <% if logged_in? %>
+          <%= link_to "マイ本棚", library_path, class: "px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all shadow-lg" %>
+        <% else %>
+          <%= link_to "ログイン", login_path, class: "text-gray-700 hover:text-amber-800 transition-colors font-medium" %>
+          <%= link_to "新規登録", signup_path, class: "px-6 py-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white font-semibold rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all shadow-lg" %>
+        <% end %>
+      </div>
     </div>
   </nav>
 
-  <!-- メインヘッダーコンテンツ -->
-  <div class="relative container mx-auto text-center py-20 px-4">
-    <h1 class="text-6xl font-bold text-amber-800 mb-6 tracking-tight">
-      Readify
-    </h1>
-    <p class="text-xl text-gray-700 max-w-2xl mx-auto mb-12 leading-relaxed">
-      あなたの読書体験をより豊かに。<br>
-      本との新しい出会いと、知識の記録をここから始めましょう。
-    </p>
-    <div class="flex justify-center gap-4">
-      <a href="#" class="bg-amber-800 text-white px-8 py-3 rounded-lg hover:bg-amber-700 transition-all transform hover:-translate-y-1 shadow-lg inline-flex items-center">
-        無料で始める
-        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-        </svg>
-      </a>
-      <a href="#" class="border-2 border-amber-800 text-amber-800 px-8 py-3 rounded-lg hover:bg-amber-50 transition-colors shadow-lg">
-        詳しく見る
-      </a>
+  <!-- ヒーローセクション -->
+  <div class="relative container mx-auto px-6 py-20 lg:py-32">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- 左側: テキストコンテンツ -->
+      <div class="space-y-8">
+        <div class="inline-block px-4 py-2 bg-amber-100 rounded-full">
+          <span class="text-amber-800 text-sm font-semibold">📚 読書管理の新しいスタンダード</span>
+        </div>
+        <h1 class="text-5xl lg:text-7xl font-extrabold text-gray-900 leading-tight">
+          読書を、
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600">もっと楽しく</span>
+        </h1>
+        <p class="text-xl lg:text-2xl text-gray-600 leading-relaxed max-w-2xl">
+          Readifyは、あなたの読書体験を革新します。本との出会いから、読書の記録、振り返りまで、全てを一つのプラットフォームで。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 pt-4">
+          <% if logged_in? %>
+            <%= link_to library_path, class: "group inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white text-lg font-semibold rounded-xl hover:from-amber-700 hover:to-orange-700 transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl" do %>
+              マイ本棚を開く
+              <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            <% end %>
+            <%= link_to new_book_path, class: "inline-flex items-center justify-center px-8 py-4 border-2 border-amber-600 text-amber-700 text-lg font-semibold rounded-xl hover:bg-amber-50 transition-all" do %>
+              本を追加
+            <% end %>
+          <% else %>
+            <%= link_to signup_path, class: "group inline-flex items-center justify-center px-8 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white text-lg font-semibold rounded-xl hover:from-amber-700 hover:to-orange-700 transition-all transform hover:scale-105 shadow-xl hover:shadow-2xl" do %>
+              今すぐ始める
+              <svg class="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            <% end %>
+            <%= link_to login_path, class: "inline-flex items-center justify-center px-8 py-4 border-2 border-amber-600 text-amber-700 text-lg font-semibold rounded-xl hover:bg-amber-50 transition-all" do %>
+              ログイン
+            <% end %>
+          <% end %>
+        </div>
+        <!-- 統計情報 -->
+        <div class="grid grid-cols-3 gap-6 pt-8">
+          <div class="text-center">
+            <div class="text-3xl font-bold text-amber-800">10K+</div>
+            <div class="text-sm text-gray-600 mt-1">登録ユーザー</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-amber-800">50K+</div>
+            <div class="text-sm text-gray-600 mt-1">登録された本</div>
+          </div>
+          <div class="text-center">
+            <div class="text-3xl font-bold text-amber-800">100K+</div>
+            <div class="text-sm text-gray-600 mt-1">読書記録</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右側: ビジュアル -->
+      <div class="relative hidden lg:block">
+        <div class="relative z-10 bg-white rounded-2xl shadow-2xl p-8 transform rotate-2 hover:rotate-0 transition-transform duration-300">
+          <div class="space-y-4">
+            <div class="h-3 bg-gradient-to-r from-amber-200 to-orange-200 rounded-full w-3/4"></div>
+            <div class="h-3 bg-gradient-to-r from-amber-200 to-orange-200 rounded-full w-full"></div>
+            <div class="h-3 bg-gradient-to-r from-amber-200 to-orange-200 rounded-full w-5/6"></div>
+            <div class="mt-8 p-6 bg-gradient-to-br from-amber-50 to-orange-50 rounded-xl">
+              <div class="flex items-center space-x-4">
+                <div class="w-16 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg shadow-lg"></div>
+                <div class="flex-1">
+                  <div class="h-3 bg-amber-300 rounded-full w-3/4 mb-2"></div>
+                  <div class="h-2 bg-amber-200 rounded-full w-1/2"></div>
+                </div>
+              </div>
+              <div class="mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div class="h-full w-2/3 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="absolute top-10 -right-10 bg-white rounded-xl shadow-xl p-4 transform -rotate-6 z-20">
+          <div class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white">✓</div>
+            <span class="text-sm font-semibold">完読!</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </header>
 
 <!-- 主要機能セクション -->
-<section class="container mx-auto px-6 py-24">
-  <h2 class="text-4xl font-bold text-center text-amber-800 mb-16">読書をもっと楽しく</h2>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-    <!-- 本の検索 -->
-    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-      <div class="text-amber-600 mb-6">
-        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
-      </div>
-      <h3 class="text-2xl font-semibold text-gray-800 mb-4">本を探す</h3>
-      <p class="text-gray-600 leading-relaxed">
-        豊富なデータベースから、次に読みたい本を見つけましょう。あなたの興味に合わせたレコメンドで、新しい本との出会いをサポートします。
+<section id="features" class="py-24 bg-white">
+  <div class="container mx-auto px-6">
+    <div class="text-center max-w-3xl mx-auto mb-20">
+      <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+        読書をもっと<span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-orange-600">楽しく、効率的に</span>
+      </h2>
+      <p class="text-xl text-gray-600">
+        Readifyが提供する、あなたの読書ライフを変える機能
       </p>
     </div>
 
-    <!-- 読書記録 -->
-    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-      <div class="text-amber-600 mb-6">
-        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-        </svg>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- 本を探す -->
+      <div class="group bg-gradient-to-br from-amber-50 to-orange-50 p-8 rounded-3xl hover:shadow-2xl transition-all transform hover:-translate-y-2 border border-amber-100">
+        <div class="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">スマート検索</h3>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          Google Books APIと連携した強力な検索機能。タイトル、著者、ISBNから簡単に本を見つけられます。
+        </p>
+        <div class="flex items-center text-amber-700 font-semibold group-hover:text-amber-800">
+          詳しく見る
+          <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
       </div>
-      <h3 class="text-2xl font-semibold text-gray-800 mb-4">読書を記録</h3>
-      <p class="text-gray-600 leading-relaxed">
-        読書の進捗や感想を記録して、自分だけの読書ログを作りましょう。読書の思い出を大切に残せます。
-      </p>
-    </div>
 
-    <!-- 統計・分析 -->
-    <div class="bg-white p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1">
-      <div class="text-amber-600 mb-6">
-        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
-        </svg>
+      <!-- 読書記録 -->
+      <div class="group bg-gradient-to-br from-blue-50 to-indigo-50 p-8 rounded-3xl hover:shadow-2xl transition-all transform hover:-translate-y-2 border border-blue-100">
+        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">進捗管理</h3>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          読書中、完読、積読を簡単に管理。進捗率や読書メモも記録して、あなたの読書を可視化します。
+        </p>
+        <div class="flex items-center text-blue-700 font-semibold group-hover:text-blue-800">
+          詳しく見る
+          <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
       </div>
-      <h3 class="text-2xl font-semibold text-gray-800 mb-4">読書を分析</h3>
-      <p class="text-gray-600 leading-relaxed">
-        あなたの読書傾向を可視化し、新たな読書の視点を発見します。月間・年間の読書統計も確認できます。
-      </p>
+
+      <!-- 統計・分析 -->
+      <div class="group bg-gradient-to-br from-green-50 to-emerald-50 p-8 rounded-3xl hover:shadow-2xl transition-all transform hover:-translate-y-2 border border-green-100">
+        <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">読書統計</h3>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          月間・年間の読書数、ジャンル分析、読書ペースなど、様々な角度からあなたの読書傾向を分析します。
+        </p>
+        <div class="flex items-center text-green-700 font-semibold group-hover:text-green-800">
+          詳しく見る
+          <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- レビュー機能 -->
+      <div class="group bg-gradient-to-br from-purple-50 to-pink-50 p-8 rounded-3xl hover:shadow-2xl transition-all transform hover:-translate-y-2 border border-purple-100">
+        <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">レビュー & 評価</h3>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          読んだ本の評価やレビューを記録。あとから見返したり、他の読者と共有することもできます。
+        </p>
+        <div class="flex items-center text-purple-700 font-semibold group-hover:text-purple-800">
+          詳しく見る
+          <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- タグ機能 -->
+      <div class="group bg-gradient-to-br from-red-50 to-orange-50 p-8 rounded-3xl hover:shadow-2xl transition-all transform hover:-translate-y-2 border border-red-100">
+        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-orange-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">カスタムタグ</h3>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          自由にタグを付けて本を分類。「仕事用」「趣味」「勉強」など、あなただけの整理方法で管理できます。
+        </p>
+        <div class="flex items-center text-red-700 font-semibold group-hover:text-red-800">
+          詳しく見る
+          <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+
+      <!-- お気に入り -->
+      <div class="group bg-gradient-to-br from-yellow-50 to-amber-50 p-8 rounded-3xl hover:shadow-2xl transition-all transform hover:-translate-y-2 border border-yellow-100">
+        <div class="w-16 h-16 bg-gradient-to-br from-yellow-500 to-amber-500 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform shadow-lg">
+          <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">お気に入り登録</h3>
+        <p class="text-gray-600 leading-relaxed mb-4">
+          気になる本や読みたい本をお気に入りに登録。あとから簡単にアクセスして、読書計画を立てられます。
+        </p>
+        <div class="flex items-center text-yellow-700 font-semibold group-hover:text-yellow-800">
+          詳しく見る
+          <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 読書状況セクション -->
-<section class="bg-gradient-to-br from-amber-50 to-amber-100/30 py-24 px-6">
-  <div class="container mx-auto">
-    <h2 class="text-4xl font-bold text-amber-800 mb-16 text-center">今月の読書</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
-      <div class="bg-white p-8 rounded-2xl shadow-xl">
-        <div class="flex items-center justify-between mb-6">
-          <h3 class="text-2xl font-semibold text-gray-800">読書目標</h3>
-          <span class="text-3xl font-bold text-amber-600">4冊</span>
+<!-- 使い方セクション -->
+<section id="how-it-works" class="py-24 bg-gradient-to-br from-gray-50 to-gray-100">
+  <div class="container mx-auto px-6">
+    <div class="text-center max-w-3xl mx-auto mb-20">
+      <h2 class="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+        たった3ステップで始められます
+      </h2>
+      <p class="text-xl text-gray-600">
+        シンプルで直感的。誰でもすぐに使い始められます
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+      <!-- ステップ1 -->
+      <div class="text-center">
+        <div class="relative mb-8">
+          <div class="w-24 h-24 bg-gradient-to-br from-amber-500 to-orange-500 rounded-full flex items-center justify-center mx-auto shadow-xl">
+            <span class="text-4xl font-bold text-white">1</span>
+          </div>
+          <div class="absolute top-12 left-1/2 w-full h-1 bg-gradient-to-r from-amber-200 to-transparent hidden md:block"></div>
         </div>
-        <div class="w-full bg-gray-100 rounded-full h-3 mb-4">
-          <div class="bg-amber-500 h-3 rounded-full w-3/4 transition-all duration-1000"></div>
-        </div>
-        <p class="text-gray-600 text-lg">目標達成まであと1冊！</p>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">アカウント作成</h3>
+        <p class="text-gray-600 leading-relaxed">
+          メールアドレスで簡単登録。SNSアカウントでも登録可能です。
+        </p>
       </div>
 
-      <div class="bg-white p-8 rounded-2xl shadow-xl">
-        <div class="flex items-center justify-between mb-6">
-          <h3 class="text-2xl font-semibold text-gray-800">読書時間</h3>
-          <span class="text-3xl font-bold text-amber-600">32時間</span>
+      <!-- ステップ2 -->
+      <div class="text-center">
+        <div class="relative mb-8">
+          <div class="w-24 h-24 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-full flex items-center justify-center mx-auto shadow-xl">
+            <span class="text-4xl font-bold text-white">2</span>
+          </div>
+          <div class="absolute top-12 left-1/2 w-full h-1 bg-gradient-to-r from-blue-200 to-transparent hidden md:block"></div>
         </div>
-        <div class="w-full bg-gray-100 rounded-full h-3 mb-4">
-          <div class="bg-amber-500 h-3 rounded-full w-4/5 transition-all duration-1000"></div>
-        </div>
-        <p class="text-gray-600 text-lg">先月より20%増加しています！</p>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">本を追加</h3>
+        <p class="text-gray-600 leading-relaxed">
+          読みたい本、読んでいる本を検索して追加。ISBNでも簡単登録。
+        </p>
       </div>
+
+      <!-- ステップ3 -->
+      <div class="text-center">
+        <div class="relative mb-8">
+          <div class="w-24 h-24 bg-gradient-to-br from-green-500 to-emerald-500 rounded-full flex items-center justify-center mx-auto shadow-xl">
+            <span class="text-4xl font-bold text-white">3</span>
+          </div>
+        </div>
+        <h3 class="text-2xl font-bold text-gray-900 mb-4">読書を記録</h3>
+        <p class="text-gray-600 leading-relaxed">
+          進捗を更新して、感想やメモを記録。読書の楽しさが広がります。
+        </p>
+      </div>
+    </div>
+
+    <div class="text-center mt-16">
+      <a href="#features" class="inline-flex items-center justify-center px-10 py-4 bg-gradient-to-r from-amber-600 to-orange-600 text-white text-lg font-semibold rounded-xl hover:from-amber-700 hover:to-orange-700 transition-all transform hover:scale-105 shadow-xl">
+        無料で始める
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+        </svg>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- CTAセクション -->
-<section class="py-24 px-6 bg-white">
-  <div class="container mx-auto text-center max-w-3xl">
-    <h2 class="text-4xl font-bold text-amber-800 mb-8">
-      新しい読書体験を始めましょう
-    </h2>
-    <p class="text-gray-600 mb-12 text-lg">
-      あなたの読書生活をより豊かにする機能が、無料でご利用いただけます。
-    </p>
-    <a href="#" class="inline-flex items-center bg-amber-800 text-white px-10 py-4 rounded-lg font-semibold hover:bg-amber-700 transition-all transform hover:-translate-y-1 shadow-lg text-lg">
-      無料で始める
-      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-      </svg>
-    </a>
-  </div>
-</section>
+<!-- Disabled - no authentication -->
 
 <!-- フッター -->
-<footer class="bg-amber-900 text-white py-12">
+<footer class="bg-gradient-to-br from-gray-900 to-gray-800 text-white py-16">
   <div class="container mx-auto px-6">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
       <div>
-        <h3 class="text-2xl font-bold mb-4">Readify</h3>
-        <p class="text-amber-100">あなたの読書をより豊かに</p>
+        <div class="flex items-center space-x-2 mb-4">
+          <svg class="w-8 h-8 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+          </svg>
+          <span class="text-2xl font-bold">Readify</span>
+        </div>
+        <p class="text-gray-400 leading-relaxed">
+          あなたの読書をより豊かに。本との新しい出会いと、知識の記録をサポートします。
+        </p>
       </div>
       <div>
-        <h4 class="font-semibold mb-4">サービス</h4>
+        <h4 class="font-semibold mb-4 text-lg">サービス</h4>
         <ul class="space-y-2">
-          <li><a href="#" class="text-amber-100 hover:text-white">本を探す</a></li>
-          <li><a href="#" class="text-amber-100 hover:text-white">読書記録</a></li>
-          <li><a href="#" class="text-amber-100 hover:text-white">統計・分析</a></li>
+          <li><a href="#features" class="text-gray-400 hover:text-amber-400 transition-colors">機能一覧</a></li>
+          <li><a href="#how-it-works" class="text-gray-400 hover:text-amber-400 transition-colors">使い方</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-amber-400 transition-colors">料金プラン</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-semibold mb-4">サポート</h4>
+        <h4 class="font-semibold mb-4 text-lg">サポート</h4>
         <ul class="space-y-2">
-          <li><a href="#" class="text-amber-100 hover:text-white">ヘルプ</a></li>
-          <li><a href="#" class="text-amber-100 hover:text-white">お問い合わせ</a></li>
-          <li><a href="#" class="text-amber-100 hover:text-white">利用規約</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-amber-400 transition-colors">ヘルプセンター</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-amber-400 transition-colors">お問い合わせ</a></li>
+          <li><a href="#" class="text-gray-400 hover:text-amber-400 transition-colors">よくある質問</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-semibold mb-4">フォロー</h4>
+        <h4 class="font-semibold mb-4 text-lg">フォロー</h4>
         <div class="flex space-x-4">
-          <a href="#" class="text-amber-100 hover:text-white">
-            <span class="sr-only">Twitter</span>
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+          <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-amber-600 rounded-full flex items-center justify-center transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.530A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path></svg>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-amber-600 rounded-full flex items-center justify-center transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.441 16.892c-2.102.144-6.784.144-8.883 0C5.282 16.736 5.017 15.622 5 12c.017-3.629.285-4.736 2.558-4.892 2.099-.144 6.782-.144 8.883 0C18.718 7.264 18.982 8.378 19 12c-.018 3.629-.285 4.736-2.559 4.892zM10 9.658l4.917 2.338L10 14.342V9.658z"/></svg>
+          </a>
+          <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-amber-600 rounded-full flex items-center justify-center transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
           </a>
         </div>
       </div>
     </div>
-    <div class="border-t border-amber-800 mt-12 pt-8 text-center text-amber-100">
-      <p>&copy; 2025 Readify. All rights reserved.</p>
+    <div class="border-t border-gray-700 pt-8 text-center">
+      <p class="text-gray-400">&copy; 2025 Readify. All rights reserved.</p>
     </div>
   </div>
 </footer>

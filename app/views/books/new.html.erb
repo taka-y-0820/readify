@@ -1,0 +1,174 @@
+<div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 py-8">
+  <!-- ヘッダー -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="flex items-center space-x-3 mb-4">
+      <%= link_to library_path, class: "text-amber-600 hover:text-amber-700 transition-colors" do %>
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+      <% end %>
+      <h1 class="text-3xl font-bold text-amber-900">本を追加</h1>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- 検索タブとフォームタブ -->
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+      <!-- タブヘッダー -->
+      <div class="flex border-b border-gray-200">
+        <button 
+          onclick="showTab('search')" 
+          id="searchTab"
+          class="flex-1 px-6 py-4 text-center font-semibold transition-colors border-b-2 border-amber-600 text-amber-600">
+          <div class="flex items-center justify-center space-x-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <span>Google Books検索</span>
+          </div>
+        </button>
+        <button 
+          onclick="showTab('manual')" 
+          id="manualTab"
+          class="flex-1 px-6 py-4 text-center font-semibold text-gray-600 hover:text-gray-900 transition-colors border-b-2 border-transparent hover:border-gray-300">
+          <div class="flex items-center justify-center space-x-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            <span>手動で入力</span>
+          </div>
+        </button>
+      </div>
+
+      <!-- Google Books検索タブ -->
+      <div id="searchContent" class="p-8">
+        <p class="text-gray-600 mb-6">本のタイトルや著者名を入力して検索してください</p>
+        
+        <%= form_with url: search_books_path, method: :get, local: true, class: "mb-8" do |form| %>
+          <div class="flex gap-3">
+            <%= form.text_field :query, 
+                placeholder: '例: 人を動かす、村上春樹', 
+                value: params[:query],
+                class: 'flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all' %>
+            <%= form.submit '検索', 
+                class: 'bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-3 rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all font-semibold shadow-lg transform hover:scale-105' %>
+          </div>
+        <% end %>
+
+        <div class="text-center py-12">
+          <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <p class="text-gray-500">検索結果がここに表示されます</p>
+        </div>
+      </div>
+
+      <!-- 手動入力タブ -->
+      <div id="manualContent" class="p-8 hidden">
+        <%= form_with model: @book, class: "space-y-6" do |f| %>
+          
+          <% if @book.errors.any? %>
+            <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+              <h3 class="text-red-800 font-semibold mb-2">エラーがあります</h3>
+              <ul class="list-disc list-inside text-red-700 text-sm space-y-1">
+                <% @book.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-2">
+              <%= f.label :title, "タイトル *", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+              <%= f.text_field :title, required: true, 
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all" %>
+            </div>
+
+            <div>
+              <%= f.label :author, "著者 *", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+              <%= f.text_field :author, required: true,
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all" %>
+            </div>
+
+            <div>
+              <%= f.label :isbn, "ISBN", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+              <%= f.text_field :isbn,
+                  placeholder: "978-4-12-345678-9",
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all" %>
+            </div>
+
+            <div>
+              <%= f.label :publisher, "出版社", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+              <%= f.text_field :publisher,
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all" %>
+            </div>
+
+            <div>
+              <%= f.label :published_date, "出版日", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+              <%= f.date_field :published_date,
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all" %>
+            </div>
+
+            <div>
+              <%= f.label :page_count, "ページ数", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+              <%= f.number_field :page_count, min: 0,
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all" %>
+            </div>
+
+            <div>
+              <%= f.label :status, "ステータス", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+              <%= f.select :status, 
+                  [["読みたい", "want_to_read"], ["読書中", "reading"], ["読み終わった", "finished"]], 
+                  {},
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all" %>
+            </div>
+
+            <div class="md:col-span-2">
+              <%= f.label :cover_url, "表紙画像URL", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+              <%= f.text_field :cover_url,
+                  placeholder: "https://example.com/cover.jpg",
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all" %>
+            </div>
+
+            <div class="md:col-span-2">
+              <%= f.label :description, "説明", class: "block text-sm font-semibold text-gray-700 mb-2" %>
+              <%= f.text_area :description, rows: 4,
+                  class: "w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all" %>
+            </div>
+          </div>
+
+          <div class="flex gap-4 pt-4">
+            <%= f.submit "本を追加", 
+                class: "flex-1 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-6 py-3 rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all font-semibold shadow-lg transform hover:scale-105" %>
+            <%= link_to "キャンセル", library_path, 
+                class: "px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors font-semibold" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function showTab(tabName) {
+  // Hide all content
+  document.getElementById('searchContent').classList.add('hidden');
+  document.getElementById('manualContent').classList.add('hidden');
+  
+  // Reset all tab styles
+  document.getElementById('searchTab').className = 'flex-1 px-6 py-4 text-center font-semibold text-gray-600 hover:text-gray-900 transition-colors border-b-2 border-transparent hover:border-gray-300';
+  document.getElementById('manualTab').className = 'flex-1 px-6 py-4 text-center font-semibold text-gray-600 hover:text-gray-900 transition-colors border-b-2 border-transparent hover:border-gray-300';
+  
+  // Show selected content and highlight tab
+  if (tabName === 'search') {
+    document.getElementById('searchContent').classList.remove('hidden');
+    document.getElementById('searchTab').className = 'flex-1 px-6 py-4 text-center font-semibold transition-colors border-b-2 border-amber-600 text-amber-600';
+  } else {
+    document.getElementById('manualContent').classList.remove('hidden');
+    document.getElementById('manualTab').className = 'flex-1 px-6 py-4 text-center font-semibold transition-colors border-b-2 border-amber-600 text-amber-600';
+  }
+}
+</script>

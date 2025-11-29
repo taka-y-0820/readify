@@ -1,0 +1,227 @@
+<div class="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 py-8">
+  <!-- ヘッダー -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <%= link_to library_path, class: "text-amber-600 hover:text-amber-700 transition-colors" do %>
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        <% end %>
+      </div>
+      <div class="flex items-center space-x-3">
+        <%= link_to edit_book_path(@book), class: "px-4 py-2 text-amber-600 hover:text-amber-700 font-medium transition-colors" do %>
+          <svg class="w-5 h-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+          編集
+        <% end %>
+        <%= button_to book_path(@book), method: :delete, data: { confirm: "本当に削除しますか?" }, class: "px-4 py-2 text-red-600 hover:text-red-700 font-medium transition-colors" do %>
+          <svg class="w-5 h-5 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+          削除
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <!-- メインコンテンツ -->
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- 本の基本情報 -->
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-8">
+      <div class="md:flex">
+        <!-- 本の表紙 -->
+        <div class="md:w-1/3 aspect-[3/4] md:aspect-auto bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center overflow-hidden">
+          <% if @book.cover_url.present? %>
+            <img src="<%= @book.cover_url %>" alt="<%= @book.title %>" class="w-full h-full object-cover" />
+          <% else %>
+            <svg class="w-32 h-32 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+          <% end %>
+        </div>
+
+        <!-- 本の詳細 -->
+        <div class="md:w-2/3 p-8">
+          <h1 class="text-3xl font-bold text-gray-900 mb-4"><%= @book.title %></h1>
+          <p class="text-xl text-gray-700 mb-6"><%= @book.author %></p>
+
+          <!-- ステータスバッジ -->
+          <div class="mb-6">
+            <% if @book.reading? %>
+              <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-amber-100 text-amber-800">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                読書中
+              </span>
+            <% elsif @book.finished? %>
+              <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-green-100 text-green-800">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                読み終わった
+              </span>
+            <% else %>
+              <span class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-blue-100 text-blue-800">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                </svg>
+                読みたい
+              </span>
+            <% end %>
+          </div>
+
+          <!-- 進捗バー -->
+          <% if @book.progress.present? %>
+            <div class="mb-6">
+              <div class="flex justify-between text-sm text-gray-600 mb-2">
+                <span class="font-semibold">読書進捗</span>
+                <span class="font-bold text-amber-700"><%= @book.progress %>%</span>
+              </div>
+              <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                <div class="bg-gradient-to-r from-amber-500 to-orange-500 h-3 rounded-full transition-all" style="width: <%= @book.progress %>%"></div>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- 説明 -->
+          <% if @book.description.present? %>
+            <div class="mb-6">
+              <h3 class="font-semibold text-gray-900 mb-2">説明</h3>
+              <p class="text-gray-700 leading-relaxed"><%= @book.description %></p>
+            </div>
+          <% end %>
+
+          <!-- メタ情報 -->
+          <div class="grid grid-cols-2 gap-4 text-sm">
+            <% if @book.publisher.present? %>
+              <div>
+                <span class="text-gray-600">出版社:</span>
+                <span class="text-gray-900 font-medium"><%= @book.publisher %></span>
+              </div>
+            <% end %>
+            <% if @book.published_date.present? %>
+              <div>
+                <span class="text-gray-600">出版日:</span>
+                <span class="text-gray-900 font-medium"><%= @book.published_date %></span>
+              </div>
+            <% end %>
+            <% if @book.page_count.present? %>
+              <div>
+                <span class="text-gray-600">ページ数:</span>
+                <span class="text-gray-900 font-medium"><%= @book.page_count %>ページ</span>
+              </div>
+            <% end %>
+            <% if @book.isbn.present? %>
+              <div>
+                <span class="text-gray-600">ISBN:</span>
+                <span class="text-gray-900 font-medium"><%= @book.isbn %></span>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 読書記録 -->
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-6">読書記録</h2>
+
+      <% if @readings.any? %>
+        <div class="space-y-6 mb-8">
+          <% @readings.each do |reading| %>
+            <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex-1">
+                  <% if reading.started_at.present? || reading.finished_at.present? %>
+                    <p class="text-sm text-gray-600 mb-2">
+                      <% if reading.started_at.present? %>
+                        開始: <%= reading.started_at.strftime("%Y年%m月%d日") %>
+                      <% end %>
+                      <% if reading.finished_at.present? %>
+                        - 完了: <%= reading.finished_at.strftime("%Y年%m月%d日") %>
+                      <% end %>
+                    </p>
+                  <% end %>
+                  <% if reading.rating.present? %>
+                    <div class="flex items-center mb-2">
+                      <% reading.rating.times do %>
+                        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                        </svg>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="flex space-x-2">
+                  <%= link_to edit_book_reading_path(@book, reading), class: "text-amber-600 hover:text-amber-700" do %>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                    </svg>
+                  <% end %>
+                  <%= button_to book_reading_path(@book, reading), method: :delete, data: { confirm: "削除しますか?" }, class: "text-red-600 hover:text-red-700" do %>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  <% end %>
+                </div>
+              </div>
+              <% if reading.review.present? %>
+                <div class="mb-3">
+                  <h4 class="font-semibold text-gray-900 mb-1">レビュー</h4>
+                  <p class="text-gray-700"><%= reading.review %></p>
+                </div>
+              <% end %>
+              <% if reading.note.present? %>
+                <div>
+                  <h4 class="font-semibold text-gray-900 mb-1">メモ</h4>
+                  <p class="text-gray-700"><%= reading.note %></p>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="text-gray-500 mb-8">まだ読書記録がありません</p>
+      <% end %>
+
+      <!-- 新規記録フォーム -->
+      <div class="border-t border-gray-200 pt-6">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">読書記録を追加</h3>
+        <%= form_with model: [@book, @new_reading], class: "space-y-4" do |f| %>
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <%= f.label :started_at, "開始日", class: "block text-sm font-medium text-gray-700 mb-1" %>
+              <%= f.date_field :started_at, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500" %>
+            </div>
+            <div>
+              <%= f.label :finished_at, "完了日", class: "block text-sm font-medium text-gray-700 mb-1" %>
+              <%= f.date_field :finished_at, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500" %>
+            </div>
+          </div>
+
+          <div>
+            <%= f.label :rating, "評価", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.select :rating, (1..5).to_a.reverse.map { |r| ["★" * r, r] }, { include_blank: "評価なし" }, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500" %>
+          </div>
+
+          <div>
+            <%= f.label :review, "レビュー", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.text_area :review, rows: 3, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500" %>
+          </div>
+
+          <div>
+            <%= f.label :note, "メモ", class: "block text-sm font-medium text-gray-700 mb-1" %>
+            <%= f.text_area :note, rows: 3, class: "w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500" %>
+          </div>
+
+          <%= f.submit "記録を追加", class: "w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white px-6 py-3 rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all font-semibold shadow-lg transform hover:scale-105" %>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
